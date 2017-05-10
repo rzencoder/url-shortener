@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const shortUrl = require('./models/shortUrl');
-const validUrl = require('valid-url')
+const validUrl = require('valid-url');
 
 const app = express();
 
