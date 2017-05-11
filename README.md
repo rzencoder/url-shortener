@@ -2,8 +2,8 @@
 
 Demo: https://glacial-eyrie-47999.herokuapp.com/
 
-**FreeCodeCamp Back End Development Certificate**
-API Project #3
+**FreeCodeCamp Back End Development Certificate
+API Project #3**
 
 Built using:
   * Node
