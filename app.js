@@ -9,7 +9,7 @@ const validUrl = require('valid-url');
 const app = express();
 var url = process.env.MONGOLAB_URI;
 
-mongoose.connect('mongodb://localhost/shortUrls' || url);
+mongoose.connect(url || 'mongodb://localhost/shortUrls');
 
 app.set('view engine', 'pug')
 app.use(express.static(__dirname + '/public'));
