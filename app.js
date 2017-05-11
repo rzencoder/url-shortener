@@ -1,13 +1,15 @@
 //Requirements
 const express = require('express');
 const mongoose = require('mongoose');
+require('dotenv').config();
 const bodyParser = require('body-parser');
 const shortUrl = require('./models/shortUrl');
 const validUrl = require('valid-url');
 
 const app = express();
+var url = process.env.MONGOLAB_URI;
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/shortUrls');
+mongoose.connect('mongodb://localhost/shortUrls' || url);
 
 app.set('view engine', 'pug')
 app.use(express.static(__dirname + '/public'));
@@ -18,8 +20,9 @@ app.get('/', function (req, res) {
 })
 
 //Add url to database and give a short randon number as new url
-app.get('/url/*', function (req, res, next) {
+app.get('/url/*', function (req, res) {
   let long = req.url.replace('/url/', '');
+
   if(validUrl.isUri(long)){
     let shortVal = Math.floor(Math.random()*10000).toString();
     let data = new shortUrl(
@@ -40,10 +43,15 @@ app.get('/url/*', function (req, res, next) {
   }
 })
 
+app.get('/favicon.ico', function(req, res) {
+    res.sendStatus(204);
+});
 //Redirect to old url in database
-app.get('/:newUrl', function(req, res, next){
+app.get('/:newUrl', function(req, res){
   var newUrl = req.params.newUrl;
+  console.log(newUrl)
   shortUrl.findOne({'smallUrl': newUrl}, function(error, data){
+    console.log(data)
     if(error){
       return res.send('Database Error');
     }
